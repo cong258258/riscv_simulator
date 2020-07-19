@@ -16,7 +16,8 @@ public:
 	}
 	void init_all()
 	{
-		memset(memory, 0, sizeof(memory));
+		for(int i = 0; i < 500000; i++)
+			memory[i] = 0;
 		unsigned now_addr = 0;
 		while(!cin.eof())
 		{

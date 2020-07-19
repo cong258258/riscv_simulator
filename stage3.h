@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+extern int idst;
+extern int exst;
+extern int memst;
+extern int wbst;
+extern int MEM_cyc;
 class Stage3
 {
 public:
@@ -8,6 +13,16 @@ public:
 	void do_it(IDEX &idex, EXMEM &exmem)
 	{
 		// cout <<"---------------stage3        ---------------" << endl;
+		if(!exst)
+		{
+			// cout << "stage3 no instruction" << endl;
+			return;
+		}
+		if(memst)
+		{
+			// cout << "memst not finish" << endl;
+			return;
+		}
 		executeman myexecute(idex);
 		exmem.op = myexecute.op;
 		exmem.rs1 = idex.rs1;
@@ -23,5 +38,8 @@ public:
 		// cout <<"rs1_num   " << bitset<32>(exmem.rs1_num) << endl;
 		// cout <<"rs2_num   " << bitset<32>(exmem.rs2_num) << endl;
 		// cout <<"rd_num    " << bitset<32>(exmem.rd_num) << endl << endl << endl;
+		exst = 0;
+		memst = 1;
+		MEM_cyc = 0;
 	}
 };

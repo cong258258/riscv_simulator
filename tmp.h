@@ -1,7 +1,7 @@
-enum Kind {u, j, i, b, s, r, ii};
+enum Kind {u, j, i, b, s, r, ii, empty};
 enum Op
 {
-	ERR,
+	EMPTY,
 	LUI, AUIPC,   // u
 	JAL,     // j
 	JALR,    // i
@@ -10,6 +10,7 @@ enum Op
 	SB, SH, SW, //s，保存指令
 	ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI, // i，立即数运算
 	ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND,  // r，运算
+	ERR
 };
 struct IFID
 {

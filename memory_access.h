@@ -2,6 +2,7 @@
 using namespace std;
 extern memoryman my_memory;
 extern registerman my_register;
+extern int MEM_cyc;
 class accessman
 {
 public:
@@ -9,28 +10,29 @@ public:
 	Op op;
 	unsigned rs1 = 0, rs2 = 0, rd = 0, imm = 0, pc = 0;
 	unsigned rs1_num = 0, rs2_num = 0, rd_num = 0;
-	unsigned if_jump = 0;
+	int fail = 0;
 	void access()
 	{
+		if(op == LB || op == LH || op == LW || op == LBU || op == LHU || kind == s)
+			if(MEM_cyc < 3)
+			{
+				MEM_cyc++;
+				fail = 1;
+				return;
+			}
 		switch(op)
 		{
+			case EMPTY:
+				break;
 			case LUI:
 				break;
 			case AUIPC:
 				break;
 			case JAL:
-				my_register[rd] = my_register.getpc();
-				my_register.redirectpc(pc + imm);
-				if_jump = 1;
 				break;
 			case JALR:
-				my_register[rd] = my_register.getpc();
-				my_register.redirectpc(my_register[rs1] + imm);
-				if_jump = 1;
 				break;	
 			case BEQ: case BNE: case BLT: case BGE: case BLTU: case BGEU:
-				my_register.redirectpc(pc);
-				if_jump = 1;
 				break;
 			case LB: 
 				rd_num = my_memory.read_memory_given(imm, 1);

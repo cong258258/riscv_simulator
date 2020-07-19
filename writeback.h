@@ -12,16 +12,26 @@ public:
 	{
 		switch(op)
 		{
-			case LUI:
-				my_register[rd] = imm;
+			case EMPTY:
 				break;
 			case AUIPC:
 				my_register[rd] = rd_num;
 				break;
-			case JAL: case JALR: case BEQ: case BNE: case BLT: case BGE: case BLTU: case BGEU:
-				cout << "jumperror" << endl; 
+			case JAL:
+				my_register.reglock[rd]--;
+				my_register[rd] = rd_num;
+				my_register.redirectpc(npc);
+				break;
+			 case JALR:
+			 my_register.reglock[rd]--;
+			 	my_register[rd] = rd_num;
+				my_register.redirectpc(npc);
+				break;
+			 case BEQ: case BNE: case BLT: case BGE: case BLTU: case BGEU:
+				my_register.redirectpc(pc);
 				break;	
-			case LB: case LH: case LW: case LBU: case LHU: case ADDI: case SLTI: case SLTIU: case XORI: case ORI: case ADD: case SUB: case SLL: case SLT: case SLTU: case XOR: case SRL: case SRA: case OR: case AND: case ANDI: case SLLI: case SRLI: case SRAI:
+			case LUI: case LB: case LH: case LW: case LBU: case LHU: case ADDI: case SLTI: case SLTIU: case XORI: case ORI: case ADD: case SUB: case SLL: case SLT: case SLTU: case XOR: case SRL: case SRA: case OR: case AND: case ANDI: case SLLI: case SRLI: case SRAI:
+				my_register.reglock[rd]--;
 				my_register[rd] = rd_num;
 				break;
 			case SB: case SH: case SW:

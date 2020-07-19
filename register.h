@@ -6,15 +6,21 @@ class registerman
 	const unsigned real_x0 = 0;   //真的硬编码的x0
 	unsigned pc = 0;
 public:
-	const int regsize = 32;
+	int *reglock;
+	class reglock_error{};
 	registerman()
 	{
 		x = new unsigned[32];
-		memset(x, 0, sizeof(x));
+		for(int i = 0; i < 32; i++)
+			x[i] = 0;
+		reglock = new int[32];
+		for(int i = 0; i < 32; i++)
+			reglock[i] = 0;
 	}
 	~registerman()
 	{
 		delete [] x;
+		delete [] reglock;
 	}
 	const unsigned &operator[](int numm) const
 	{
@@ -25,6 +31,11 @@ public:
 	}
 	unsigned &operator[](int numm)
 	{
+		if(reglock[numm] && numm != 0)
+		{
+			cout << "reglock" << numm << ":" << reglock[numm] << endl;
+			throw reglock_error();
+		}
 		x[0] = 0;
 		return x[numm];
 	}
@@ -39,5 +50,10 @@ public:
 	void redirectpc(unsigned addr)
 	{
 		pc = addr;
+	}
+	void showall()
+	{
+		for(int i = 0; i < 32; i++)
+		 	cout << hex << setw(8) << x[i] << "   ";
 	}
 };

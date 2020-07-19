@@ -1,15 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 extern memoryman my_memory;
+extern int idst;
+extern int exst;
+extern int memst;
+extern int wbst;
+extern int MEM_cyc;
 class Stage4
 {
 public:
 	Stage4() = default;
 	~Stage4() = default;
-	int do_it(EXMEM &exmem, MEMWB &memwb)
+	void do_it(EXMEM &exmem, MEMWB &memwb)
 	{
 		// cout <<"---------------stage4        ---------------" << endl;
+		if(!memst)
+		{
+			// cout << "stage4 no instruction" << endl;
+			return;
+		}
+		if(wbst)
+		{
+			// cout << "wb not finish" << endl;
+			return;
+		}
 		accessman my_access(exmem);
+		if(my_access.fail)
+		{
+			// cout << "stage4 fail!" << endl;
+			return;
+		}
 		memwb.op = my_access.op;
 		memwb.rs1 = exmem.rs1;
 		memwb.rs2 = exmem.rs2;
@@ -25,6 +45,7 @@ public:
 		// cout <<"rs1_num   " << bitset<32>(memwb.rs1_num) << endl;
 		// cout <<"rs2_num   " << bitset<32>(memwb.rs2_num) << endl;
 		// cout <<"rd_num    " << bitset<32>(memwb.rd_num) << endl << endl << endl;
-		return my_access.if_jump;
+		memst = 0;
+		wbst = 1;
 	}
 };
