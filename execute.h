@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+extern int npc;
+extern int idst;
 class executeman
 {
 public:
@@ -10,50 +12,93 @@ public:
 	{
 		switch(op)
 		{
+			case EMPTY:
+				break;
 			case LUI:
+				rd = imm;
 				break;
 			case AUIPC:
 				rd = imm + pc;
 				break;
 			case JAL:
+				rd = pc + 4;
+				// npc = pc + imm;
 				break;
 			case JALR:
+				rd = pc + 4;
+				// npc = rs1 + imm;
 				break;	
 			case BEQ:
 				if(rs1 == rs2)
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case BNE:
 				if(rs1 != rs2)
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case BLT:
 				if(int(rs1) < int(rs2))
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case BGE:
 				if(int(rs1) >= int(rs2))
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case BLTU:
 				if(rs1 < rs2)
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case BGEU:
 				if(rs1 >= rs2)
-					pc += imm;
+				{
+					npc = pc + imm;
+					idst = 0;
+				}
 				else
-					pc += 4;
+				{
+					npc = pc + 4;
+					idst = 0;
+				}
 				break;
 			case LB: case LH: case LW: case LBU: case LHU:
 				imm += rs1; 
