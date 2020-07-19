@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 extern memoryman my_memory;
 extern int idst;
@@ -39,6 +41,8 @@ public:
 		memwb.rs1_num = my_access.rs1_num;
 		memwb.rs2_num = my_access.rs2_num;
 		memwb.rd_num = my_access.rd_num;
+		memwb.guess_status = exmem.guess_status;
+		memwb.codeid = exmem.codeid;
 		// ios::sync_with_stdio(false);
 		// cout << "rs1   " << bitset<5>(memwb.rs1) << "     rs2   " << bitset<5>(memwb.rs2) << "     rd    " << bitset<5>(memwb.rd) << "     pc     " << bitset<8>(memwb.pc) << endl; 
 		// cout <<"imm   " << bitset<32>(memwb.imm) << endl;

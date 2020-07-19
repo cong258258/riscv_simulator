@@ -24,6 +24,8 @@ struct IDEX
 	unsigned rs1, rs2, rd, imm;
 	unsigned rs1_num, rs2_num, rd_num;
 	unsigned pc;
+	unsigned codeid;
+	unsigned guess_status;
 };
 struct EXMEM
 {
@@ -32,6 +34,8 @@ struct EXMEM
 	unsigned rs1, rs2, rd, imm;
 	unsigned rs1_num, rs2_num, rd_num;
 	unsigned pc;
+	unsigned codeid;
+	unsigned guess_status;
 };
 struct MEMWB
 {
@@ -40,4 +44,6 @@ struct MEMWB
 	unsigned rs1, rs2, rd, imm;
 	unsigned rs1_num, rs2_num, rd_num;
 	unsigned pc;
+	unsigned codeid;
+	unsigned guess_status;
 };

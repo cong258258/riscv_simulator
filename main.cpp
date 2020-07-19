@@ -1,5 +1,8 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 #include "tmp.h"
+#include "guess.h"
 #include "register.h"
 #include "memory.h"
 #include "instruction.h"
@@ -14,6 +17,7 @@
 using namespace std;
 memoryman my_memory;
 registerman my_register;
+guessman my_guess;
 IFID ifid;
 IDEX idex;
 EXMEM exmem;
@@ -84,5 +88,6 @@ int main()
 		// 	continue;
 		// }
 	printf("%d\n", (my_register[10] & 255u));
+	// my_guess.guess_show_final();
 	return 0;
 }

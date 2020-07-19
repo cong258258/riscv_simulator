@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 extern registerman my_register;
 extern int idst;
@@ -38,6 +40,8 @@ public:
 		idex.rs1_num = myinstruction.rs1_num;
 		idex.rs2_num = myinstruction.rs2_num;
 		idex.rd_num = myinstruction.rd_num;
+		idex.guess_status = myinstruction.guess_status;
+		idex.codeid = myinstruction.codeid;
 		// cout <<"rs1_num   " << bitset<32>(idex.rs1_num) << endl;
 		// cout <<"rs2_num   " << bitset<32>(idex.rs2_num) << endl;
 		// cout <<"rd_num    " << bitset<32>(idex.rd_num) << endl << endl << endl;

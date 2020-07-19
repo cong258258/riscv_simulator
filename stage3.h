@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 extern int idst;
 extern int exst;
@@ -33,6 +35,8 @@ public:
 		exmem.rs1_num = myexecute.rs1;
 		exmem.rs2_num = myexecute.rs2;
 		exmem.rd_num = myexecute.rd;
+		exmem.guess_status = idex.guess_status;
+		exmem.codeid = idex.codeid;
 		// cout << " 运算" << dec << exmem.op << endl << "rs1   " << bitset<5>(exmem.rs1) << "     rs2   " << bitset<5>(exmem.rs2) << "     rd    " << bitset<5>(exmem.rd) << "     pc     " << bitset<8>(exmem.pc) << endl; 
 		// cout <<"imm   " << bitset<32>(exmem.imm) << endl;
 		// cout <<"rs1_num   " << bitset<32>(exmem.rs1_num) << endl;

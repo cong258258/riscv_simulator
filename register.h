@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 class registerman
 {
@@ -33,7 +35,6 @@ public:
 	{
 		if(reglock[numm] && numm != 0)
 		{
-			cout << "reglock" << numm << ":" << reglock[numm] << endl;
 			throw reglock_error();
 		}
 		x[0] = 0;
@@ -51,9 +52,9 @@ public:
 	{
 		pc = addr;
 	}
-	void showall()
-	{
-		for(int i = 0; i < 32; i++)
-		 	cout << hex << setw(8) << x[i] << "   ";
-	}
+	// void showall()
+	// {
+	// 	for(int i = 0; i < 32; i++)
+	// 	 	cout << hex << setw(8) << x[i] << "   ";
+	// }
 };

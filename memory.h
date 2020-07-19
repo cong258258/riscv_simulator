@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
+#include <sstream>
 using namespace std;
 extern registerman my_register;
 class memoryman

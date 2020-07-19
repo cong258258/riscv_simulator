@@ -1,6 +1,9 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 extern registerman my_register;
+extern guessman my_guess;
 extern int npc;
 class instruction_decode_error{};
 class instructionman
@@ -12,6 +15,8 @@ public:
 	unsigned rs1_num = 0, rs2_num = 0, rd_num = 0;
 	unsigned pc = 0;
 	int fail = 0;
+	unsigned codeid = 0;
+	unsigned guess_status = 0;
 	unsigned subcode(unsigned &code, int from, int to)
 	{
 		unsigned length = to - from + 1;
@@ -274,12 +279,16 @@ public:
 			npc = ((rs1_num + imm) & (~1));
 		if(op == JAL)
 			npc = pc + imm;
-		// if(kind == b)
-		// {
-			
-		// }
-		// cout << "种类" << kind << " 运算" << dec << op << endl << "rs1   " << bitset<5>(rs1) << "     rs2   " << bitset<5>(rs2) << "     rd    " << bitset<5>(rd) << endl; 
-		// 
+		if(kind == b)
+		{
+			codeid = (code & 0b111111111111111);
+			guess_status = my_guess.do_guess(codeid);
+			if(guess_status)
+				npc = pc + imm;
+			else
+				npc = pc + 4;
+		}
+		
 	}
 	~instructionman() = default;
 };

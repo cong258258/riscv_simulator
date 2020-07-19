@@ -1,13 +1,17 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
 extern int npc;
 extern int idst;
+extern guessman my_guess;
 class executeman
 {
 public:
 	Kind kind;
 	Op op;
-	unsigned rs1 = 0, rs2 = 0, rd = 0, imm = 0, pc = 0;
+	unsigned rs1 = 0, rs2 = 0, rd = 0, imm = 0, pc = 0, guess_status = 0;
+	unsigned idcode = 0;
 	void execute()
 	{
 		switch(op)
@@ -28,76 +32,156 @@ public:
 				rd = pc + 4;
 				// npc = rs1 + imm;
 				break;	
+				// {
+				// 	npc = pc + imm;
+				// 	idst = 0;
+				// // }else
+				// {
+				// 	npc = pc + 4;
+				// 	idst = 0;
+				// }
 			case BEQ:
 				if(rs1 == rs2)
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case BNE:
 				if(rs1 != rs2)
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case BLT:
 				if(int(rs1) < int(rs2))
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case BGE:
 				if(int(rs1) >= int(rs2))
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						// my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case BLTU:
 				if(rs1 < rs2)
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case BGEU:
 				if(rs1 >= rs2)
 				{
-					npc = pc + imm;
-					idst = 0;
+					if(guess_status == 1)
+						my_guess.guess_right_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_taken(idcode);
+						npc = pc + imm;
+						idst = 0;
+					}
 				}
 				else
 				{
-					npc = pc + 4;
-					idst = 0;
+					if(guess_status == 0)
+						my_guess.guess_right_not_taken(idcode);
+					else
+					{
+						my_guess.guess_wrong_not_taken(idcode);
+						npc = pc + 4;
+						idst = 0;
+					}
 				}
 				break;
 			case LB: case LH: case LW: case LBU: case LHU:
@@ -173,8 +257,9 @@ public:
 
 		}
 	} 
-	executeman(IDEX &asdf):kind(asdf.kind),op(asdf.op),rs1(asdf.rs1_num),rs2(asdf.rs2_num),rd(asdf.rd_num),imm(asdf.imm),pc(asdf.pc)
+	executeman(IDEX &asdf):kind(asdf.kind),op(asdf.op),rs1(asdf.rs1_num),rs2(asdf.rs2_num),rd(asdf.rd_num),imm(asdf.imm),pc(asdf.pc),guess_status(asdf.guess_status),idcode(asdf.codeid)
 	{
+		// printf("idcode %d", idcode);
 		execute();
 	}
 	~executeman() = default;
